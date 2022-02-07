@@ -1,5 +1,7 @@
 package com.ZYTRUST.Induccion.controladores;
 
+import com.ZYTRUST.Induccion.DTO.MostrarDetalleFactura;
+import com.ZYTRUST.Induccion.DTO.MostrarFacturaenDetalle;
 import com.ZYTRUST.Induccion.DTO.RegistrarDetalleFactura;
 import com.ZYTRUST.Induccion.modelos.Detalle_Factura;
 import com.ZYTRUST.Induccion.servicios.DetalleFacturaService;
@@ -21,7 +23,7 @@ public class DetalleFacturaController {
     }
 
     @PostMapping
-    public Detalle_Factura CrearDetalle(@RequestBody RegistrarDetalleFactura registrarDetalleFactura){
-        return detalleFacturaService.CreateDetalleFactura(registrarDetalleFactura);
+    public MostrarDetalleFactura CrearDetalle(@RequestBody RegistrarDetalleFactura registrarDetalleFactura){
+        return new MostrarDetalleFactura(detalleFacturaService.CreateDetalleFactura(registrarDetalleFactura));
     }
 }

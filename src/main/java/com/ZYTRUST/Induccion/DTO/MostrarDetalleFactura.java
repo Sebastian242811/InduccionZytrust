@@ -8,12 +8,16 @@ import lombok.Data;
 @Data
 public class MostrarDetalleFactura {
 
-    private Producto producto;
+    //private MostrarFacturaenDetalle factura;
+
+    private MostrarProducto producto;
 
     private Integer Cantidad;
 
-    MostrarDetalleFactura(Detalle_Factura detalle_factura){
+    public MostrarDetalleFactura(Detalle_Factura detalle_factura){
+        //MostrarFacturaenDetalle mostrarFactura= new MostrarFacturaenDetalle(detalle_factura.getFactura());
         setCantidad(detalle_factura.getCantidad());
-        setProducto(detalle_factura.getProducto());
+        setProducto(new MostrarProducto(detalle_factura.getProducto()));
+        //setFactura(mostrarFactura);
     }
 }

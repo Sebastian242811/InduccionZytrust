@@ -5,15 +5,12 @@ import com.ZYTRUST.Induccion.modelos.Factura;
 import lombok.Data;
 
 import java.time.LocalDate;
-import java.util.List;
-import java.util.stream.Collectors;
 
 @Data
-public class MostrarFactura {
-
+public class MostrarFacturaenDetalle {
     private String id;
 
-    private MostrarCliente cliente;
+    private Cliente cliente;
 
     private LocalDate fechaEmision;
 
@@ -21,12 +18,9 @@ public class MostrarFactura {
 
     private String estado;
 
-    private List<MostrarDetalleFactura> detalles;
-
-    public MostrarFactura(Factura factura){
+    public MostrarFacturaenDetalle(Factura factura){
         setId(factura.getId());
-        setCliente(new MostrarCliente(factura.getCliente()));
-        setDetalles(factura.getDetalles().stream().map(MostrarDetalleFactura::new).collect(Collectors.toList()));
+        setCliente(factura.getCliente());
         setFechaEmision(factura.getFechaEmision());
         setFechaVencimiento(factura.getFechaVencimiento());
         setEstado(factura.getEstado());
