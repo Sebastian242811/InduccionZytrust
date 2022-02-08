@@ -1,19 +1,22 @@
+/*
+ * @(#)DetalleFactura.java
+ *
+ * Copyright 2019 ZyTrust SA, Todos los derechos reservados.
+ * ZT PROPRIETARIO/CONFIDENTIALIDAD. Su uso está sujeto a los
+ * términos de la licencia adquirida a ZyTrust SA.
+ * No se permite modificar, copiar ni difundir sin autorización
+ * expresa de ZyTrust SA.
+ */
 package com.ZYTRUST.Induccion.servicios;
 
-import com.ZYTRUST.Induccion.DTO.RegistrarDetalleFactura;
-import com.ZYTRUST.Induccion.modelos.Detalle_Factura;
-import com.ZYTRUST.Induccion.modelos.Factura;
-import com.ZYTRUST.Induccion.repositorios.DetalleFacturaRepository;
-import com.ZYTRUST.Induccion.repositorios.FacturaRepository;
-import com.ZYTRUST.Induccion.repositorios.ProductoRepository;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
+import com.ZYTRUST.Induccion.dto.RegistrarDetalleFactura;
+import com.ZYTRUST.Induccion.modelos.DetalleFactura;
 
 import java.util.List;
 
 public interface DetalleFacturaService {
 
-    public List<Detalle_Factura> ListarDetallesFacturas();
+    public List<DetalleFactura> listarDetallesFacturas();
 
-    public Detalle_Factura CreateDetalleFactura(RegistrarDetalleFactura detalleFactura);
+    public DetalleFactura crearDetalleFactura(RegistrarDetalleFactura detalleFactura);
 }

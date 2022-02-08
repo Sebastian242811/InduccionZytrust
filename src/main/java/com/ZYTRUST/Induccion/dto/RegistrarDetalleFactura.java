@@ -1,4 +1,4 @@
-package com.ZYTRUST.Induccion.DTO;
+package com.ZYTRUST.Induccion.dto;
 
 import lombok.Data;
 
@@ -9,5 +9,5 @@ public class RegistrarDetalleFactura {
 
     private String productoId;
 
-    private Integer Cantidad;
+    private Integer cantidad;
 }

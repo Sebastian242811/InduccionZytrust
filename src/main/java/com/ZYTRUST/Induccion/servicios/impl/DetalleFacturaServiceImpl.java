@@ -1,8 +1,18 @@
+/*
+ * @(#)DetalleFactura.java
+ *
+ * Copyright 2019 ZyTrust SA, Todos los derechos reservados.
+ * ZT PROPRIETARIO/CONFIDENTIALIDAD. Su uso está sujeto a los
+ * términos de la licencia adquirida a ZyTrust SA.
+ * No se permite modificar, copiar ni difundir sin autorización
+ * expresa de ZyTrust SA.
+ */
 package com.ZYTRUST.Induccion.servicios.impl;
 
-import com.ZYTRUST.Induccion.DTO.RegistrarDetalleFactura;
-import com.ZYTRUST.Induccion.modelos.Detalle_Factura;
-import com.ZYTRUST.Induccion.modelos.Factura;
+import com.ZYTRUST.Induccion.dto.MostrarFactura;
+import com.ZYTRUST.Induccion.dto.MostrarFacturaPorId;
+import com.ZYTRUST.Induccion.dto.RegistrarDetalleFactura;
+import com.ZYTRUST.Induccion.modelos.DetalleFactura;
 import com.ZYTRUST.Induccion.repositorios.DetalleFacturaRepository;
 import com.ZYTRUST.Induccion.repositorios.FacturaRepository;
 import com.ZYTRUST.Induccion.repositorios.ProductoRepository;
@@ -13,11 +23,16 @@ import org.springframework.stereotype.Service;
 
 import java.util.List;
 
+/**
+ * Esta clase representa la implementacion del Interface DetalleFacturaService
+ * Debe usarse para añadir todas las implementaciones de las funciones relacionadas
+ * con la tabla DetalleFactura
+ *
+ * @author Sebastian Hernandez
+ * @version 1, 07/02/2022
+ */
 @Service
 public class DetalleFacturaServiceImpl implements DetalleFacturaService {
-
-    @Autowired
-    private FacturaRepository facturaRepository;
 
     @Autowired
     private ProductoRepository productoRepository;
@@ -28,16 +43,18 @@ public class DetalleFacturaServiceImpl implements DetalleFacturaService {
     @Autowired
     private FacturaService facturaService;
 
-
+    /**Dedicada a listar a los clientes guardados en la base de datos*/
     @Override
-    public List<Detalle_Factura> ListarDetallesFacturas() {
+    public List<DetalleFactura> listarDetallesFacturas() {
         return detalleFacturaRepository.findAll();
     }
 
+    /**Dedicada a crear un nuevo DetalleFactura*/
     @Override
-    public Detalle_Factura CreateDetalleFactura(RegistrarDetalleFactura detalleFactura) {
-        Detalle_Factura detalleFactura1= new Detalle_Factura();
-        detalleFactura1.setFactura(facturaService.CreateFactura(detalleFactura.getFactura()));
+    public DetalleFactura crearDetalleFactura(RegistrarDetalleFactura detalleFactura) {
+        DetalleFactura detalleFactura1= new DetalleFactura();
+        MostrarFacturaPorId mostrarFactura = facturaService.crearFactura(detalleFactura.getFactura());
+        detalleFactura1.setFactura(facturaService.buscarFacturaPorId(mostrarFactura.getId()));
         detalleFactura1.setProducto(productoRepository.findById(detalleFactura.getProductoId()).get());
         detalleFactura1.setCantidad(detalleFactura.getCantidad());
         return detalleFacturaRepository.save(detalleFactura1);
