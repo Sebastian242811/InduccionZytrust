@@ -1,5 +1,5 @@
 /*
- * @(#)DetalleFactura.java
+ * @(#)DetalleFacturaController.java
  *
  * Copyright 2019 ZyTrust SA, Todos los derechos reservados.
  * ZT PROPRIETARIO/CONFIDENTIALIDAD. Su uso está sujeto a los
@@ -27,7 +27,7 @@ import java.util.List;
  * @version 1, 07/02/2022
  */
 @RestController
-@RequestMapping(value = "/factura/detalles")
+@RequestMapping(value = "/facturas/detalles")
 public class DetalleFacturaController {
 
     /**Inyeccion de dependencias del servicio DetalleFactura*/
@@ -36,13 +36,13 @@ public class DetalleFacturaController {
 
     /**EndPoint dedicado a listar los DetallesFacturas existentes*/
     @GetMapping
-    public List<DetalleFactura> ListarDetalles(){
+    public List<DetalleFactura> listarDetalles(){
         return detalleFacturaService.listarDetallesFacturas();
     }
 
     /**EndPoint dedicado a crear DetallesFacturas existentes*/
     @PostMapping
-    public MostrarDetalleFactura CrearDetalle(@RequestBody RegistrarDetalleFactura registrarDetalleFactura){
+    public MostrarDetalleFactura crearDetalle(@RequestBody RegistrarDetalleFactura registrarDetalleFactura){
         return new MostrarDetalleFactura(detalleFacturaService.crearDetalleFactura(registrarDetalleFactura));
     }
 }

@@ -41,7 +41,7 @@ public class Cliente {
 
     /**RUC de cliente*/
     @Column(name = "CLI_RUC")
-    private String RUC;
+    private String ruc;
 
     /**Direccion de cliente*/
     @Column(name = "CLI_DIRECCION")

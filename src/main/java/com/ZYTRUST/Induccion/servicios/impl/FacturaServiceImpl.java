@@ -50,7 +50,14 @@ public class FacturaServiceImpl implements FacturaService {
     @Autowired
     private DetalleFacturaRepository detalleFacturaRepository;
 
-    /**Dedicada a crear una nueva Factura*/
+    /**Dedicada a crear una nueva Factura
+     *
+     * @param factura es el parametro tipo Registrar factura el cual se utilizara
+     * para añadir la informacion a la base de datos
+     * @return MostrarFacturaPorId es el tipo de variable de retorno que se
+     * necesita, en este caso devolvemos un objeto creado en esa misma linea la
+     * cual servira al cliente para confirmar lo añadido recientemente
+     * */
     @Override
     public MostrarFacturaPorId crearFactura(RegistrarFactura factura) {
         DateTimeFormatter dateTimeFormatter = DateTimeFormatter.ofPattern("d/MM/yyyy");
@@ -71,13 +78,18 @@ public class FacturaServiceImpl implements FacturaService {
         return new MostrarFacturaPorId(facturaProvisional);
     }
 
-    /**Dedicada a listar las Facturas existentes*/
+    /**Dedicada a listar las Facturas existentes
+     *
+     * @return La funcion retorna la lista de todas las facturas encontradas en
+     * la base de datos*/
     @Override
     public List<Factura> listarFacturas() {
         return facturaRepository.findAll();
     }
 
-    /**Dedicada a buscar una Factura por su identificador*/
+    /**Dedicada a buscar una Factura por su identificador
+     *
+     * @param id es el identificador(numero de la factura) de la factura que se desea buscar*/
     @Override
     public Factura buscarFacturaPorId(String id) {
         return facturaRepository.findById(id).get();

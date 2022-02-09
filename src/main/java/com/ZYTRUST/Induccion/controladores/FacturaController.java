@@ -1,5 +1,5 @@
 /*
- * @(#)DetalleFactura.java
+ * @(#)FacturaController.java
  *
  * Copyright 2019 ZyTrust SA, Todos los derechos reservados.
  * ZT PROPRIETARIO/CONFIDENTIALIDAD. Su uso está sujeto a los
@@ -11,9 +11,7 @@ package com.ZYTRUST.Induccion.controladores;
 
 import com.ZYTRUST.Induccion.dto.MostrarFactura;
 import com.ZYTRUST.Induccion.dto.MostrarFacturaPorId;
-import com.ZYTRUST.Induccion.dto.MostrarFacturaenDetalle;
 import com.ZYTRUST.Induccion.dto.RegistrarFactura;
-import com.ZYTRUST.Induccion.modelos.Factura;
 import com.ZYTRUST.Induccion.servicios.FacturaService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -30,7 +28,7 @@ import java.util.stream.Collectors;
  * @version 1, 07/02/2022
  */
 @RestController
-@RequestMapping(value = "/factura")
+@RequestMapping(value = "/facturas")
 public class FacturaController {
 
     /**Inyeccion de dependencias del servicio Factura*/
@@ -39,13 +37,13 @@ public class FacturaController {
 
     /**EndPoint dedicado a listar Facturas existentes*/
     @GetMapping()
-    public List<MostrarFactura> ListarFacturas(){
+    public List<MostrarFactura> listarFacturas(){
         return facturaService.listarFacturas().stream().map(MostrarFactura::new).collect(Collectors.toList());
     }
 
     /**EndPoint dedicado a generar nuevas Facturas*/
     @PostMapping()
-    public MostrarFacturaPorId CreateFactura(@RequestBody() RegistrarFactura registrarFactura){
+    public MostrarFacturaPorId createFactura(@RequestBody() RegistrarFactura registrarFactura){
         return facturaService.crearFactura(registrarFactura);
     }
 
