@@ -9,9 +9,7 @@
  */
 package com.ZYTRUST.Induccion.controladores;
 
-import com.ZYTRUST.Induccion.dto.MostrarFactura;
-import com.ZYTRUST.Induccion.dto.MostrarFacturaPorId;
-import com.ZYTRUST.Induccion.dto.RegistrarFactura;
+import com.ZYTRUST.Induccion.dto.*;
 import com.ZYTRUST.Induccion.servicios.FacturaService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -39,6 +37,16 @@ public class FacturaController {
     @GetMapping()
     public List<MostrarFactura> listarFacturas(){
         return facturaService.listarFacturas().stream().map(MostrarFactura::new).collect(Collectors.toList());
+    }
+
+    @GetMapping("/inter")
+    public List<MostrarFacturaI> listarFacturasInter(){
+        return facturaService.listALLInter();
+    }
+
+    @GetMapping("/class")
+    public List<MostrarFacturaClass> listarFacturasclas(){
+        return facturaService.listALLClas();
     }
 
     /**EndPoint dedicado a generar nuevas Facturas*/

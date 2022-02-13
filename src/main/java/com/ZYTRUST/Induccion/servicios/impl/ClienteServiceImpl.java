@@ -9,11 +9,14 @@
  */
 package com.ZYTRUST.Induccion.servicios.impl;
 
+import com.ZYTRUST.Induccion.dto.MostrarCliente;
 import com.ZYTRUST.Induccion.modelos.Cliente;
 import com.ZYTRUST.Induccion.repositorios.ClienteRepository;
 import com.ZYTRUST.Induccion.servicios.ClienteService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
+import java.util.List;
 
 /**
  * Esta clase representa la implementacion del Interface ClienteService
@@ -33,5 +36,10 @@ public class ClienteServiceImpl implements ClienteService {
     @Override
     public Cliente crearCliente(Cliente cliente) {
         return clienteRepository.save(cliente);
+    }
+
+    @Override
+    public List<MostrarCliente> listarCliente() {
+        return clienteRepository.listarClientes();
     }
 }

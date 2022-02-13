@@ -9,10 +9,15 @@
  */
 package com.ZYTRUST.Induccion.servicios;
 
+import com.ZYTRUST.Induccion.dto.MostrarCliente;
 import com.ZYTRUST.Induccion.modelos.Cliente;
+
+import java.util.List;
 
 
 public interface ClienteService {
 
     public Cliente crearCliente(Cliente cliente);
+
+    public List<MostrarCliente> listarCliente();
 }

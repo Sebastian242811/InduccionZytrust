@@ -9,9 +9,7 @@
  */
 package com.ZYTRUST.Induccion.servicios;
 
-import com.ZYTRUST.Induccion.dto.MostrarFactura;
-import com.ZYTRUST.Induccion.dto.MostrarFacturaPorId;
-import com.ZYTRUST.Induccion.dto.RegistrarFactura;
+import com.ZYTRUST.Induccion.dto.*;
 import com.ZYTRUST.Induccion.modelos.Factura;
 
 import java.util.List;
@@ -24,4 +22,8 @@ public interface FacturaService {
     public List<Factura> listarFacturas();
 
     public Factura buscarFacturaPorId(String id);
+
+    public List<MostrarFacturaI> listALLInter();
+
+    List<MostrarFacturaClass> listALLClas();
 }

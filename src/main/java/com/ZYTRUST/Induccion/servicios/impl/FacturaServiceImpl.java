@@ -9,9 +9,9 @@
  */
 package com.ZYTRUST.Induccion.servicios.impl;
 
-import com.ZYTRUST.Induccion.dto.MostrarFactura;
-import com.ZYTRUST.Induccion.dto.MostrarFacturaPorId;
-import com.ZYTRUST.Induccion.dto.RegistrarFactura;
+import com.ZYTRUST.Induccion.dto.*;
+import com.ZYTRUST.Induccion.excepcion.CodigoError;
+import com.ZYTRUST.Induccion.excepcion.ExcepcionZyTrust;
 import com.ZYTRUST.Induccion.modelos.DetalleFactura;
 import com.ZYTRUST.Induccion.modelos.Factura;
 import com.ZYTRUST.Induccion.repositorios.ClienteRepository;
@@ -19,6 +19,7 @@ import com.ZYTRUST.Induccion.repositorios.DetalleFacturaRepository;
 import com.ZYTRUST.Induccion.repositorios.FacturaRepository;
 import com.ZYTRUST.Induccion.repositorios.ProductoRepository;
 import com.ZYTRUST.Induccion.servicios.FacturaService;
+import org.slf4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -50,6 +51,8 @@ public class FacturaServiceImpl implements FacturaService {
     @Autowired
     private DetalleFacturaRepository detalleFacturaRepository;
 
+    private static Logger logger = org.slf4j.LoggerFactory.getLogger(FacturaServiceImpl.class);
+
     /**Dedicada a crear una nueva Factura
      *
      * @param factura es el parametro tipo Registrar factura el cual se utilizara
@@ -60,6 +63,7 @@ public class FacturaServiceImpl implements FacturaService {
      * */
     @Override
     public MostrarFacturaPorId crearFactura(RegistrarFactura factura) {
+        logger.info("Creacion de la Factura");
         DateTimeFormatter dateTimeFormatter = DateTimeFormatter.ofPattern("d/MM/yyyy");
         Factura facturaProvisional = new Factura();
         DetalleFactura detalle = new DetalleFactura();
@@ -67,13 +71,25 @@ public class FacturaServiceImpl implements FacturaService {
         facturaProvisional.setEstado("Entregado");
         facturaProvisional.setFechaEmision(LocalDate.now());
         facturaProvisional.setFechaVencimiento(LocalDate.parse(factura.getFechaVencimiento(),dateTimeFormatter));
+        if(facturaProvisional.getFechaVencimiento().isBefore(LocalDate.now())){
+            logger.error(CodigoError.FECHA_NO_VALIDA.getDescripcion());
+            throw new ExcepcionZyTrust(CodigoError.FECHA_NO_VALIDA);
+        }
         facturaProvisional.setId(factura.getId());
+        logger.debug("creacion de los detalle factura");
         facturaProvisional.setCliente(clienteRepository.findById(factura.getClienteId()).get());
+        if(!clienteRepository.existsById(facturaProvisional.getCliente().getId())){
+            throw new ExcepcionZyTrust(CodigoError.CLIENTE_NO_EXISTE);
+        }
         detalle.setFactura(facturaRepository.save(facturaProvisional));
         detalle.setProducto(productoRepository.getById(factura.getProductoId()));
+        if(!productoRepository.existsById(factura.getProductoId())){
+            throw new ExcepcionZyTrust(CodigoError.PRODUCTO_NO_ENCONTRADO);
+        }
         detalle.setCantidad(factura.getCantidad());
         detalleFacturaRepository.save(detalle);
         detallesFactura.add(detalle);
+        logger.debug("Aqui se termino de crear la factura{}",facturaProvisional);
         facturaProvisional.setDetalles(detallesFactura);
         return new MostrarFacturaPorId(facturaProvisional);
     }
@@ -93,5 +109,15 @@ public class FacturaServiceImpl implements FacturaService {
     @Override
     public Factura buscarFacturaPorId(String id) {
         return facturaRepository.findById(id).get();
+    }
+
+    @Override
+    public List<MostrarFacturaI> listALLInter() {
+        return facturaRepository.listALLInter();
+    }
+
+    @Override
+    public List<MostrarFacturaClass> listALLClas() {
+        return facturaRepository.listALLClas();
     }
 }

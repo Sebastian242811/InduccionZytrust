@@ -18,6 +18,7 @@ import com.ZYTRUST.Induccion.repositorios.FacturaRepository;
 import com.ZYTRUST.Induccion.repositorios.ProductoRepository;
 import com.ZYTRUST.Induccion.servicios.DetalleFacturaService;
 import com.ZYTRUST.Induccion.servicios.FacturaService;
+import org.slf4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -43,6 +44,8 @@ public class DetalleFacturaServiceImpl implements DetalleFacturaService {
     @Autowired
     private FacturaService facturaService;
 
+    private static Logger logger = org.slf4j.LoggerFactory.getLogger(DetalleFacturaServiceImpl.class);
+
     /**Dedicada a listar a los clientes guardados en la base de datos*/
     @Override
     public List<DetalleFactura> listarDetallesFacturas() {
@@ -53,6 +56,9 @@ public class DetalleFacturaServiceImpl implements DetalleFacturaService {
     @Override
     public DetalleFactura crearDetalleFactura(RegistrarDetalleFactura detalleFactura) {
         DetalleFactura detalleFactura1= new DetalleFactura();
+        if(facturaService.buscarFacturaPorId(detalleFactura.getFactura().getId()) == null){
+            logger.debug("La factura Ingresada no existe. Creando nueva..");
+        }
         MostrarFacturaPorId mostrarFactura = facturaService.crearFactura(detalleFactura.getFactura());
         detalleFactura1.setFactura(facturaService.buscarFacturaPorId(mostrarFactura.getId()));
         detalleFactura1.setProducto(productoRepository.findById(detalleFactura.getProductoId()).get());
