@@ -17,13 +17,9 @@ import java.util.List;
 public interface FacturaService {
 
 
-    public MostrarFacturaPorId crearFactura(RegistrarFactura factura);
+    public MostrarFacturaPorId1 crearFactura(RegistrarFactura factura);
 
-    public List<Factura> listarFacturas();
+    public MostrarFacturaPorId1 buscarFacturaPorId(String id);
 
-    public Factura buscarFacturaPorId(String id);
-
-    public List<MostrarFacturaI> listALLInter();
-
-    List<MostrarFacturaClass> listALLClas();
+    List<MostrarFactura> listALL();
 }

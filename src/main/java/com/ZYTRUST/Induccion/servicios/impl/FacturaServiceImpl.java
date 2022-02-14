@@ -27,6 +27,7 @@ import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 /**
  * Esta clase representa la implementacion del Interface FacturaService
@@ -62,7 +63,7 @@ public class FacturaServiceImpl implements FacturaService {
      * cual servira al cliente para confirmar lo añadido recientemente
      * */
     @Override
-    public MostrarFacturaPorId crearFactura(RegistrarFactura factura) {
+    public MostrarFacturaPorId1 crearFactura(RegistrarFactura factura) {
         logger.info("Creacion de la Factura");
         DateTimeFormatter dateTimeFormatter = DateTimeFormatter.ofPattern("d/MM/yyyy");
         Factura facturaProvisional = new Factura();
@@ -91,33 +92,19 @@ public class FacturaServiceImpl implements FacturaService {
         detallesFactura.add(detalle);
         logger.debug("Aqui se termino de crear la factura{}",facturaProvisional);
         facturaProvisional.setDetalles(detallesFactura);
-        return new MostrarFacturaPorId(facturaProvisional);
-    }
-
-    /**Dedicada a listar las Facturas existentes
-     *
-     * @return La funcion retorna la lista de todas las facturas encontradas en
-     * la base de datos*/
-    @Override
-    public List<Factura> listarFacturas() {
-        return facturaRepository.findAll();
+        return new MostrarFacturaPorId1(facturaProvisional);
     }
 
     /**Dedicada a buscar una Factura por su identificador
      *
      * @param id es el identificador(numero de la factura) de la factura que se desea buscar*/
     @Override
-    public Factura buscarFacturaPorId(String id) {
-        return facturaRepository.findById(id).get();
+    public MostrarFacturaPorId1 buscarFacturaPorId(String id) {
+        return new MostrarFacturaPorId1(facturaRepository.getById(id));
     }
 
     @Override
-    public List<MostrarFacturaI> listALLInter() {
-        return facturaRepository.listALLInter();
-    }
-
-    @Override
-    public List<MostrarFacturaClass> listALLClas() {
-        return facturaRepository.listALLClas();
+    public List<MostrarFactura> listALL() {
+        return facturaRepository.listAll();
     }
 }

@@ -15,7 +15,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
-import java.util.stream.Collectors;
 
 /**
  * Esta clase representa al controlador de la clase Factura,
@@ -36,27 +35,17 @@ public class FacturaController {
     /**EndPoint dedicado a listar Facturas existentes*/
     @GetMapping()
     public List<MostrarFactura> listarFacturas(){
-        return facturaService.listarFacturas().stream().map(MostrarFactura::new).collect(Collectors.toList());
-    }
-
-    @GetMapping("/inter")
-    public List<MostrarFacturaI> listarFacturasInter(){
-        return facturaService.listALLInter();
-    }
-
-    @GetMapping("/class")
-    public List<MostrarFacturaClass> listarFacturasclas(){
-        return facturaService.listALLClas();
+        return facturaService.listALL();
     }
 
     /**EndPoint dedicado a generar nuevas Facturas*/
     @PostMapping()
-    public MostrarFacturaPorId createFactura(@RequestBody() RegistrarFactura registrarFactura){
+    public MostrarFacturaPorId1 createFactura(@RequestBody() RegistrarFactura registrarFactura){
         return facturaService.crearFactura(registrarFactura);
     }
 
     @GetMapping({"/{id}"})
-    public MostrarFacturaPorId buscarFacturaPorId(@PathVariable String id){
-        return new MostrarFacturaPorId(facturaService.buscarFacturaPorId(id));
+    public MostrarFacturaPorId1 buscarFacturaPorId(@PathVariable String id){
+        return facturaService.buscarFacturaPorId(id);
     }
 }

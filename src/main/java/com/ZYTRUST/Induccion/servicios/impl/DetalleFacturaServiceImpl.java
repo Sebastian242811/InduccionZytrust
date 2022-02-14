@@ -9,12 +9,10 @@
  */
 package com.ZYTRUST.Induccion.servicios.impl;
 
-import com.ZYTRUST.Induccion.dto.MostrarFactura;
-import com.ZYTRUST.Induccion.dto.MostrarFacturaPorId;
+import com.ZYTRUST.Induccion.dto.MostrarFacturaPorId1;
 import com.ZYTRUST.Induccion.dto.RegistrarDetalleFactura;
 import com.ZYTRUST.Induccion.modelos.DetalleFactura;
 import com.ZYTRUST.Induccion.repositorios.DetalleFacturaRepository;
-import com.ZYTRUST.Induccion.repositorios.FacturaRepository;
 import com.ZYTRUST.Induccion.repositorios.ProductoRepository;
 import com.ZYTRUST.Induccion.servicios.DetalleFacturaService;
 import com.ZYTRUST.Induccion.servicios.FacturaService;
@@ -59,8 +57,8 @@ public class DetalleFacturaServiceImpl implements DetalleFacturaService {
         if(facturaService.buscarFacturaPorId(detalleFactura.getFactura().getId()) == null){
             logger.debug("La factura Ingresada no existe. Creando nueva..");
         }
-        MostrarFacturaPorId mostrarFactura = facturaService.crearFactura(detalleFactura.getFactura());
-        detalleFactura1.setFactura(facturaService.buscarFacturaPorId(mostrarFactura.getId()));
+        MostrarFacturaPorId1 mostrarFactura = facturaService.crearFactura(detalleFactura.getFactura());
+        //detalleFactura1.setFactura(facturaService.buscarFacturaPorId(mostrarFactura.getId()));
         detalleFactura1.setProducto(productoRepository.findById(detalleFactura.getProductoId()).get());
         detalleFactura1.setCantidad(detalleFactura.getCantidad());
         return detalleFacturaRepository.save(detalleFactura1);
