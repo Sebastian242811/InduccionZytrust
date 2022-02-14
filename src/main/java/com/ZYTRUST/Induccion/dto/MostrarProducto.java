@@ -1,2 +1,10 @@
-package com.ZYTRUST.Induccion.dto;public interface MostrarProducto {
+package com.ZYTRUST.Induccion.dto;
+
+public interface MostrarProducto {
+
+    String getNombre();
+
+    String getDescripcion();
+
+    String getPrecio();
 }

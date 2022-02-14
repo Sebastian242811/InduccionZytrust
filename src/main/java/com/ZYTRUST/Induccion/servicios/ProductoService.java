@@ -9,9 +9,14 @@
  */
 package com.ZYTRUST.Induccion.servicios;
 
+import com.ZYTRUST.Induccion.dto.MostrarProducto;
 import com.ZYTRUST.Induccion.modelos.Producto;
+
+import java.util.List;
 
 public interface ProductoService {
 
     public Producto crearProducto(Producto producto);
+
+    public List<MostrarProducto> listarProductos();
 }

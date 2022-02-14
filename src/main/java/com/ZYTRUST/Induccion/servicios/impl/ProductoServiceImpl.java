@@ -9,11 +9,14 @@
  */
 package com.ZYTRUST.Induccion.servicios.impl;
 
+import com.ZYTRUST.Induccion.dto.MostrarProducto;
 import com.ZYTRUST.Induccion.modelos.Producto;
 import com.ZYTRUST.Induccion.repositorios.ProductoRepository;
 import com.ZYTRUST.Induccion.servicios.ProductoService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
+import java.util.List;
 
 /**
  * Esta clase representa la implementacion del Interface ProductoService
@@ -33,5 +36,10 @@ public class ProductoServiceImpl implements ProductoService {
     @Override
     public Producto crearProducto(Producto producto) {
         return productoRepository.save(producto);
+    }
+
+    @Override
+    public List<MostrarProducto> listarProductos() {
+        return productoRepository.listarProductos();
     }
 }
